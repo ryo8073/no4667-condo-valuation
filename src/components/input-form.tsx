@@ -92,7 +92,7 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
       onResult(null);
     } else {
       setErrors({});
-      onResult(res.result);
+      onResult(res.result ?? null);
     }
   };
 

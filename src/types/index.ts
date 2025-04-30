@@ -30,5 +30,5 @@ export type CalculationResult = {
 export type ResultWithDetails = CalculationResult & {
   totalSelf: number;
   totalRental: number;
-  details: any;
+  details: Record<string, unknown>;
 }; 

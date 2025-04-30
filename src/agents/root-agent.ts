@@ -6,7 +6,7 @@ import { ResultWithDetails } from '../types';
 /**
  * root-agent: バリデーション→計算のフロー管理
  */
-export function rootAgent(input: FormInput): { result?: ResultWithDetails; error?: any } {
+export function rootAgent(input: FormInput): { result?: ResultWithDetails; error?: unknown } {
   const validation = validationAgent(input);
   if (!validation.success) {
     return { error: validation.error.format() };
