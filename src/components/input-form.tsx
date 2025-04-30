@@ -1,7 +1,7 @@
 "use client";
 import { useState, useMemo } from "react";
 import { FormInput } from "../types";
-import { CalculationResult } from "../types";
+import { ResultWithDetails } from "../types";
 import { rootAgent } from "../agents/root-agent";
 
 // 敷地面積・分子・分母はstringで管理
@@ -39,7 +39,7 @@ const initialFormState: FormState = {
 
 const leaseholdOptions = [0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3];
 
-export default function InputForm({ onResult }: { onResult: (result: CalculationResult | null) => void }) {
+export default function InputForm({ onResult }: { onResult: (result: ResultWithDetails | null) => void }) {
   const [form, setForm] = useState<FormState>(initialFormState);
   const [errors, setErrors] = useState<Record<string, string>>({});
 

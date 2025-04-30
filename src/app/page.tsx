@@ -3,10 +3,10 @@ import { useState } from "react";
 import Layout from "../components/layout";
 import InputForm from "../components/input-form";
 import ResultDisplay from "../components/result-display";
-import { CalculationResult } from "../types";
+import { ResultWithDetails } from "../types";
 
 export default function Home() {
-  const [result, setResult] = useState<CalculationResult | null>(null);
+  const [result, setResult] = useState<ResultWithDetails | null>(null);
 
   return (
     <Layout>

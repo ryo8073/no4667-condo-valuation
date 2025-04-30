@@ -25,4 +25,10 @@ export type CalculationResult = {
   rentalBuildingPrice: number;
   landRightValue: number;
   leasedLandValue: number;
+};
+
+export type ResultWithDetails = CalculationResult & {
+  totalSelf: number;
+  totalRental: number;
+  details: any;
 }; 
