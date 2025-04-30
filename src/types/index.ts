@@ -36,7 +36,9 @@ export type CalculationDetails = {
   C: number;
   D: number;
   totalFloorsIndex: number;
+  totalFloorsIndexDisplay: number;
   shareNarrownessDegree: number;
+  shareNarrowness: number;
   landRightAreaD: null;
   sectionalCorrectionRate: number;
   deviationRate: number;

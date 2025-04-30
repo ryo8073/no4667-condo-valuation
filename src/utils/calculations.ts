@@ -102,7 +102,9 @@ export function calculateValuation(input: FormInput) {
       C,
       D,
       totalFloorsIndex,
+      totalFloorsIndexDisplay: totalFloorsIndex,
       shareNarrownessDegree,
+      shareNarrowness: shareNarrownessDegree,
       landRightAreaD: null, // 使わなくなったのでnull
       sectionalCorrectionRate,
       deviationRate,
