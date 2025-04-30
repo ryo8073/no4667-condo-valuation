@@ -27,8 +27,31 @@ export type CalculationResult = {
   leasedLandValue: number;
 };
 
+export type CalculationDetails = {
+  buildingAgeRaw: number;
+  landRightAreaRaw: number;
+  landRightPriceRaw: number;
+  A: number;
+  B: number;
+  C: number;
+  D: number;
+  totalFloorsIndex: number;
+  shareNarrownessDegree: number;
+  landRightAreaD: null;
+  sectionalCorrectionRate: number;
+  deviationRate: number;
+  deviationRateRaw: number;
+  evaluationLevel: number;
+  sectionalBuildingPrice: number;
+  rentalBuildingPrice: number;
+  landRightValue: number;
+  leasedLandValue: number;
+  totalSelf: number;
+  totalRental: number;
+};
+
 export type ResultWithDetails = CalculationResult & {
   totalSelf: number;
   totalRental: number;
-  details: Record<string, unknown>;
+  details: CalculationDetails;
 }; 
