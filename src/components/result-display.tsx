@@ -12,7 +12,7 @@ interface CalculationDetails {
   B: number;
   C: number;
   D: number;
-  landRightAreaD: number;
+  landRightAreaD: number | null;
   sectionalCorrectionRate: number;
   deviationRate: number;
   evaluationLevel: number;
@@ -22,7 +22,7 @@ interface CalculationDetails {
   leasedLandValue: number;
   totalSelf: number;
   totalRental: number;
-  totalFloorsIndexDisplay: string;
+  totalFloorsIndexDisplay: number;
   totalFloorsIndex: number;
   shareNarrowness: number;
   shareNarrownessDegree: number;
