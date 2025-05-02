@@ -45,10 +45,10 @@ export default function ResultDisplay({ result }: { result: ResultWithDetails })
   const details = result.details;
   return (
     <div className="p-4 bg-gray-50 rounded shadow mt-4">
-      <h2 className="text-lg font-bold mb-2">計算結果</h2>
+      <h2 className="text-lg font-bold mb-2 text-gray-900">計算結果</h2>
       <div className="mb-4">
         <h3 className="font-semibold text-blue-700 mb-1">自用地の場合</h3>
-        <ul className="space-y-1">
+        <ul className="space-y-1 text-gray-900 text-base">
           <li>区分所有権の価格（建物）: {formatNumber(result.sectionalBuildingPrice, 0)} 円</li>
           <li>敷地利用権の価格（土地）: {formatNumber(result.landRightValue, 0)} 円</li>
           <li className="font-bold">評価額合計: {formatNumber(result.totalSelf, 0)} 円</li>
@@ -56,15 +56,15 @@ export default function ResultDisplay({ result }: { result: ResultWithDetails })
       </div>
       <div className="mb-4">
         <h3 className="font-semibold text-green-700 mb-1">賃貸した場合</h3>
-        <ul className="space-y-1">
+        <ul className="space-y-1 text-gray-900 text-base">
           <li>区分所有権の価格（建物）: {formatNumber(result.rentalBuildingPrice, 0)} 円</li>
           <li>敷地利用権の価格（土地）: {formatNumber(result.leasedLandValue, 0)} 円</li>
           <li className="font-bold">評価額合計: {formatNumber(result.totalRental, 0)} 円</li>
         </ul>
       </div>
       <div className="mt-6">
-        <h4 className="font-semibold mb-2">計算ロジック詳細</h4>
-        <ul className="text-xs space-y-1">
+        <h4 className="font-semibold mb-2 text-gray-900">計算ロジック詳細</h4>
+        <ul className="text-xs space-y-1 text-gray-900">
           <li>築年数: {details.buildingAgeRaw} → {result.buildingAge} 年（切り上げ）</li>
           <li>敷地利用権の面積: {details.landRightAreaRaw} → {result.landRightArea} ㎡（小数点2位繰上げ）</li>
           <li>従来の敷地利用権の価格（土地）: {Number(details.landRightPriceRaw).toLocaleString()} → {Number(result.landRightPrice).toLocaleString()} 円（0円の位で四捨五入）</li>
