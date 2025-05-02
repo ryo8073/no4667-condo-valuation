@@ -138,42 +138,42 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
     <form onSubmit={handleSubmit} className="space-y-6 p-6 bg-yellow-50 rounded-xl shadow-md max-w-lg w-full mx-auto">
       <div className="grid grid-cols-1 gap-4">
         <div>
-          <label className="block text-sm font-medium mb-1">相続開始日</label>
-          <input type="date" name="inheritanceDate" value={form.inheritanceDate} onChange={handleChange} className={`input${errors.inheritanceDate ? ' border-red-400' : ''}`} />
+          <label className="block text-sm font-medium text-gray-900 mb-1" htmlFor="inheritanceDate">相続開始日</label>
+          <input id="inheritanceDate" type="date" name="inheritanceDate" value={form.inheritanceDate} onChange={handleChange} className={`input${errors.inheritanceDate ? ' border-red-400' : ''}`} />
           {errors.inheritanceDate && <span className="text-red-500 text-xs mt-1 block">{errors.inheritanceDate}</span>}
         </div>
         <div>
-          <label className="block text-sm font-medium mb-1">新築年月日</label>
-          <input type="date" name="constructionDate" value={form.constructionDate} onChange={handleChange} className={`input${errors.constructionDate ? ' border-red-400' : ''}`} />
+          <label className="block text-sm font-medium text-gray-900 mb-1" htmlFor="constructionDate">新築年月日</label>
+          <input id="constructionDate" type="date" name="constructionDate" value={form.constructionDate} onChange={handleChange} className={`input${errors.constructionDate ? ' border-red-400' : ''}`} />
           {errors.constructionDate && <span className="text-red-500 text-xs mt-1 block">{errors.constructionDate}</span>}
           {buildingAge !== "" && <span className="text-lg text-blue-700 font-bold mt-2 block">築年数: {buildingAge} 年</span>}
         </div>
         <div>
-          <label className="block text-sm font-medium mb-1">総階数</label>
-          <input type="number" name="totalFloors" value={form.totalFloors} onChange={handleChange} className={`input${errors.totalFloors ? ' border-red-400' : ''}`} min={1} />
+          <label className="block text-sm font-medium text-gray-900 mb-1" htmlFor="totalFloors">総階数</label>
+          <input id="totalFloors" type="number" name="totalFloors" value={form.totalFloors} onChange={handleChange} className={`input${errors.totalFloors ? ' border-red-400' : ''}`} min={1} />
           {errors.totalFloors && <span className="text-red-500 text-xs mt-1 block">{errors.totalFloors}</span>}
         </div>
         <div>
-          <label className="block text-sm font-medium mb-1">所在階</label>
-          <input type="number" name="floor" value={form.floor} onChange={handleChange} className={`input${errors.floor ? ' border-red-400' : ''}`} min={0} max={form.totalFloors} />
+          <label className="block text-sm font-medium text-gray-900 mb-1" htmlFor="floor">所在階</label>
+          <input id="floor" type="number" name="floor" value={form.floor} onChange={handleChange} className={`input${errors.floor ? ' border-red-400' : ''}`} min={0} max={form.totalFloors} />
           {errors.floor && <span className="text-red-500 text-xs mt-1 block">{errors.floor}</span>}
         </div>
         <div>
-          <label className="block text-sm font-medium mb-1">専有部分の面積(㎡)</label>
-          <input type="number" name="exclusiveArea" value={form.exclusiveArea} onChange={handleChange} className={`input${errors.exclusiveArea ? ' border-red-400' : ''}`} min={0} step="0.01" />
+          <label className="block text-sm font-medium text-gray-900 mb-1" htmlFor="exclusiveArea">専有部分の面積(㎡)</label>
+          <input id="exclusiveArea" type="number" name="exclusiveArea" value={form.exclusiveArea} onChange={handleChange} className={`input${errors.exclusiveArea ? ' border-red-400' : ''}`} min={0} step="0.01" />
           {errors.exclusiveArea && <span className="text-red-500 text-xs mt-1 block">{errors.exclusiveArea}</span>}
         </div>
         <div>
-          <label className="block text-sm font-medium mb-1">敷地の面積(㎡)</label>
-          <input type="text" name="landArea" value={formatCommaNumber(form.landArea)} onChange={handleCommaInput} className={`input${errors.landArea ? ' border-red-400' : ''}`} min={0} step="0.01" />
+          <label className="block text-sm font-medium text-gray-900 mb-1" htmlFor="landArea">敷地の面積(㎡)</label>
+          <input id="landArea" type="text" name="landArea" value={formatCommaNumber(form.landArea)} onChange={handleCommaInput} className={`input${errors.landArea ? ' border-red-400' : ''}`} min={0} step="0.01" />
           {errors.landArea && <span className="text-red-500 text-xs mt-1 block">{errors.landArea}</span>}
         </div>
         <div>
-          <label className="block text-sm font-medium mb-1">敷地権の割合</label>
+          <label className="block text-sm font-medium text-gray-900 mb-1" htmlFor="landShareNumerator">敷地権の割合</label>
           <div className="flex items-center gap-2">
-            <input type="text" name="landShareNumerator" value={formatCommaNumber(form.landShareNumerator)} onChange={handleCommaInput} className={`input w-20${errors.landShareNumerator ? ' border-red-400' : ''}`} min={1} />
+            <input id="landShareNumerator" type="text" name="landShareNumerator" value={formatCommaNumber(form.landShareNumerator)} onChange={handleCommaInput} className={`input w-20${errors.landShareNumerator ? ' border-red-400' : ''}`} min={1} />
             <span>/</span>
-            <input type="text" name="landShareDenominator" value={formatCommaNumber(form.landShareDenominator)} onChange={handleCommaInput} className={`input w-20${errors.landShareDenominator ? ' border-red-400' : ''}`} min={1} />
+            <input id="landShareDenominator" type="text" name="landShareDenominator" value={formatCommaNumber(form.landShareDenominator)} onChange={handleCommaInput} className={`input w-20${errors.landShareDenominator ? ' border-red-400' : ''}`} min={1} />
           </div>
           <span className="text-xs text-gray-500 mt-1 block">
             {formatCommaNumber(form.landShareNumerator)} / {formatCommaNumber(form.landShareDenominator)}
@@ -185,25 +185,25 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
           )}
         </div>
         <div>
-          <label className="block text-sm font-medium mb-1">従来の区分所有権の価格（建物）<span className="text-xs text-gray-500 ml-1">（固定資産税評価）</span></label>
-          <input type="text" name="buildingPrice" value={formatCommaNumber(form.buildingPrice)} onChange={handleCommaInput} className={`input${errors.buildingPrice ? ' border-red-400' : ''}`} min={0} />
+          <label className="block text-sm font-medium text-gray-900 mb-1" htmlFor="buildingPrice">従来の区分所有権の価格（建物）<span className="text-xs text-gray-500 ml-1">（固定資産税評価）</span></label>
+          <input id="buildingPrice" type="text" name="buildingPrice" value={formatCommaNumber(form.buildingPrice)} onChange={handleCommaInput} className={`input${errors.buildingPrice ? ' border-red-400' : ''}`} min={0} />
           {errors.buildingPrice && <span className="text-red-500 text-xs mt-1 block">{errors.buildingPrice}</span>}
         </div>
         <div>
-          <label className="block text-sm font-medium mb-1">前面路線価(円)</label>
-          <input type="text" name="roadPrice" value={formatCommaNumber(form.roadPrice)} onChange={handleCommaInput} className={`input${errors.roadPrice ? ' border-red-400' : ''}`} min={0} />
+          <label className="block text-sm font-medium text-gray-900 mb-1" htmlFor="roadPrice">前面路線価(円)</label>
+          <input id="roadPrice" type="text" name="roadPrice" value={formatCommaNumber(form.roadPrice)} onChange={handleCommaInput} className={`input${errors.roadPrice ? ' border-red-400' : ''}`} min={0} />
           {errors.roadPrice && <span className="text-red-500 text-xs mt-1 block">{errors.roadPrice}</span>}
         </div>
         <div>
-          <label className="block text-sm font-medium mb-1">路線価調整率</label>
-          <input type="number" name="roadPriceRate" value={form.roadPriceRate} readOnly className="input bg-gray-100 cursor-not-allowed" />
+          <label className="block text-sm font-medium text-gray-900 mb-1" htmlFor="roadPriceRate">路線価調整率</label>
+          <input id="roadPriceRate" type="number" name="roadPriceRate" value={form.roadPriceRate} readOnly className="input bg-gray-100 cursor-not-allowed" />
           <span className="text-xs text-gray-500">1で固定</span>
           {landRightPrice !== "" && (
             <div className="text-base text-blue-700 font-bold mt-2">従来の敷地利用権の価格（土地）: {landRightPrice} 円</div>
           )}
         </div>
         <div>
-          <label className="block text-sm font-medium mb-1">借地権割合</label>
+          <label className="block text-sm font-medium text-gray-900 mb-1" htmlFor="leaseholdRate">借地権割合</label>
           <div className="flex flex-wrap gap-2 mt-1">
             {leaseholdOptions.map((rate) => (
               <button
@@ -219,8 +219,8 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
           {errors.leaseholdRate && <span className="text-red-500 text-xs mt-1 block">{errors.leaseholdRate}</span>}
         </div>
         <div>
-          <label className="block text-sm font-medium mb-1">賃貸割合（%）</label>
-          <input type="number" name="rentalRate" value={form.rentalRate} onChange={handleChange} className="input" min={0} max={100} />
+          <label className="block text-sm font-medium text-gray-900 mb-1" htmlFor="rentalRate">賃貸割合（%）</label>
+          <input id="rentalRate" type="number" name="rentalRate" value={form.rentalRate} onChange={handleChange} className="input" min={0} max={100} />
           {errors.rentalRate && <span className="text-red-500 text-xs mt-1 block">{errors.rentalRate}</span>}
         </div>
       </div>

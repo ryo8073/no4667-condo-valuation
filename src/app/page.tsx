@@ -10,7 +10,7 @@ export default function Home() {
 
   return (
     <Layout>
-      <h1 className="text-2xl font-bold mb-2 text-center">居住用区分所有財産の相続税評価額計算</h1>
+      <h1 className="text-3xl font-bold mb-2 text-center text-gray-900">居住用区分所有財産の相続税評価額計算</h1>
       <div className="text-center text-sm text-gray-600 mb-4">居宅（居住用）の場合に適用</div>
       <InputForm onResult={setResult} />
       {result && <ResultDisplay result={result} />}
