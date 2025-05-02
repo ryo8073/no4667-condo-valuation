@@ -44,25 +44,27 @@ interface ResultWithDetails {
 export default function ResultDisplay({ result }: { result: ResultWithDetails }) {
   const details = result.details;
   return (
-    <div className="p-4 bg-gray-50 rounded shadow mt-4">
-      <h2 className="text-lg font-bold mb-2 text-gray-900">計算結果</h2>
-      <div className="mb-4">
-        <h3 className="font-semibold text-blue-700 mb-1">自用地の場合</h3>
-        <ul className="space-y-1 text-gray-900 text-base">
-          <li>区分所有権の価格（建物）: {formatNumber(result.sectionalBuildingPrice, 0)} 円</li>
-          <li>敷地利用権の価格（土地）: {formatNumber(result.landRightValue, 0)} 円</li>
-          <li className="font-bold">評価額合計: {formatNumber(result.totalSelf, 0)} 円</li>
-        </ul>
+    <div className="p-6 bg-white rounded-xl shadow-lg mt-6 max-w-xl mx-auto">
+      <h2 className="text-2xl font-bold mb-6 text-gray-900 text-center border-b pb-2">計算結果</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="bg-blue-50 rounded-lg p-4 shadow-sm">
+          <h3 className="font-bold text-blue-800 text-lg mb-3 border-b pb-1">自用地の場合</h3>
+          <ul className="space-y-2 text-gray-900 text-base">
+            <li><span className="font-medium">区分所有権の価格（建物）:</span> <span className="font-mono">{formatNumber(result.sectionalBuildingPrice, 0)} 円</span></li>
+            <li><span className="font-medium">敷地利用権の価格（土地）:</span> <span className="font-mono">{formatNumber(result.landRightValue, 0)} 円</span></li>
+            <li className="font-bold text-lg text-blue-900 mt-2">評価額合計: <span className="font-mono">{formatNumber(result.totalSelf, 0)} 円</span></li>
+          </ul>
+        </div>
+        <div className="bg-green-50 rounded-lg p-4 shadow-sm">
+          <h3 className="font-bold text-green-800 text-lg mb-3 border-b pb-1">賃貸した場合</h3>
+          <ul className="space-y-2 text-gray-900 text-base">
+            <li><span className="font-medium">区分所有権の価格（建物）:</span> <span className="font-mono">{formatNumber(result.rentalBuildingPrice, 0)} 円</span></li>
+            <li><span className="font-medium">敷地利用権の価格（土地）:</span> <span className="font-mono">{formatNumber(result.leasedLandValue, 0)} 円</span></li>
+            <li className="font-bold text-lg text-green-900 mt-2">評価額合計: <span className="font-mono">{formatNumber(result.totalRental, 0)} 円</span></li>
+          </ul>
+        </div>
       </div>
-      <div className="mb-4">
-        <h3 className="font-semibold text-green-700 mb-1">賃貸した場合</h3>
-        <ul className="space-y-1 text-gray-900 text-base">
-          <li>区分所有権の価格（建物）: {formatNumber(result.rentalBuildingPrice, 0)} 円</li>
-          <li>敷地利用権の価格（土地）: {formatNumber(result.leasedLandValue, 0)} 円</li>
-          <li className="font-bold">評価額合計: {formatNumber(result.totalRental, 0)} 円</li>
-        </ul>
-      </div>
-      <div className="mt-6">
+      <div className="mt-8">
         <h4 className="font-semibold mb-2 text-gray-900">計算ロジック詳細</h4>
         <ul className="text-xs space-y-1 text-gray-900">
           <li>築年数: {details.buildingAgeRaw} → {result.buildingAge} 年（切り上げ）</li>
