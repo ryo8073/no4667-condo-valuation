@@ -135,7 +135,7 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 p-6 bg-white rounded-xl shadow-md max-w-lg w-full mx-auto">
+    <form onSubmit={handleSubmit} className="space-y-6 p-6 bg-yellow-50 rounded-xl shadow-md max-w-lg w-full mx-auto">
       <div className="grid grid-cols-1 gap-4">
         <div>
           <label className="block text-sm font-medium mb-1">相続開始日</label>
@@ -225,6 +225,7 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
         </div>
       </div>
       <button type="submit" className="btn btn-primary w-full h-12 text-lg mt-2">計算する</button>
+      <p className="text-xs text-gray-500 mt-2 text-center">計算ボタンを押すと、下記に計算結果が表示されます</p>
     </form>
   );
 } 
