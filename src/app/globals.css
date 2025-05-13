@@ -62,13 +62,13 @@ input, textarea, select {
     background-color: #23272f !important;
   }
   .bg-blue-50 {
-    background-color: #1e293b !important;
+    background-color: #22304a !important;
   }
   .bg-green-50 {
-    background-color: #134e4a !important;
+    background-color: #1a3a2a !important;
   }
   .text-gray-900, .text-gray-800 {
-    color: #f4f4f5 !important;
+    color: #e5e7eb !important;
   }
   .border-gray-300 {
     border-color: #3b4252 !important;
@@ -79,6 +79,24 @@ input, textarea, select {
   ::placeholder {
     color: #888 !important;
     opacity: 1;
+  }
+  .text-blue-800 {
+    color: #93c5fd !important;
+  }
+  .text-blue-900 {
+    color: #60a5fa !important;
+  }
+  .text-green-800 {
+    color: #6ee7b7 !important;
+  }
+  .text-green-900 {
+    color: #34d399 !important;
+  }
+  .border-blue-100 {
+    border-color: #334155 !important;
+  }
+  .border-green-100 {
+    border-color: #14532d !important;
   }
 }
 

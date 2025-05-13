@@ -41,6 +41,7 @@ const initialFormState: FormState = {
 export default function InputForm({ onResult }: { onResult: (result: ResultWithDetails | null) => void }) {
   const [form, setForm] = useState<FormState>(initialFormState);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [landAreaFocused, setLandAreaFocused] = useState(false);
 
   // カンマ区切り入力用onChange
   const handleCommaInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -216,7 +217,19 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
               <span className="ml-1 text-blue-600 cursor-pointer font-bold border border-blue-200 rounded-full w-5 h-5 flex items-center justify-center bg-white">？</span>
             </Tooltip>
           </label>
-          <input id="landArea" type="text" name="landArea" value={formatLandArea(form.landArea)} onChange={handleCommaInput} className={`w-full p-3 rounded-lg border border-gray-300 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition ${errors.landArea ? ' border-red-400' : ''}`} min={0} step="0.01" placeholder="例: 1306.00" />
+          <input
+            id="landArea"
+            type="text"
+            name="landArea"
+            value={landAreaFocused ? form.landArea : formatLandArea(form.landArea)}
+            onChange={handleCommaInput}
+            onFocus={() => setLandAreaFocused(true)}
+            onBlur={() => setLandAreaFocused(false)}
+            className={`w-full p-3 rounded-lg border border-gray-300 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition ${errors.landArea ? ' border-red-400' : ''}`}
+            min={0}
+            step="0.01"
+            placeholder="例: 1306.00"
+          />
           {errors.landArea && <span className="text-red-500 text-xs mt-1 block">{errors.landArea}</span>}
         </div>
         <div>
