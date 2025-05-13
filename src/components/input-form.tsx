@@ -47,10 +47,18 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
     const { name, value } = e.target;
     // landAreaのみ小数点2桁まで許可
     if (name === "landArea") {
+      // カンマを除去
+      const raw = value.replace(/,/g, "");
       // 数字と小数点のみ許可し、小数点以下2桁まで
-      const sanitized = value.replace(/[^\d.]/g, "");
-      const match = sanitized.match(/^\d*(\.\d{0,2})?/);
-      setForm((prev) => ({ ...prev, [name]: match ? match[0] : "" }));
+      let sanitized = raw.replace(/[^\d.]/g, "");
+      // 小数点が複数ある場合は最初の1つだけ残す
+      const parts = sanitized.split('.');
+      if (parts.length > 2) {
+        sanitized = parts[0] + '.' + parts.slice(1).join('');
+      }
+      // 小数点以下2桁まで
+      sanitized = sanitized.replace(/^(\d+)(\.(\d{0,2})).*$/, '$1$2');
+      setForm((prev) => ({ ...prev, [name]: sanitized }));
     } else {
       setForm((prev) => ({ ...prev, [name]: value.replace(/[^\d]/g, "") }));
     }

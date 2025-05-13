@@ -76,24 +76,32 @@ export default function ResultDisplay({ result, showDetails }: { result: ResultW
           <h4 className="font-semibold mt-8 mb-3 text-gray-900 text-base">計算ロジック詳細</h4>
           <ul className="text-xs space-y-1 text-gray-900">
             <li>築年数: {details.buildingAgeRaw} → {result.buildingAge} 年（切り上げ）</li>
-            <li>敷地利用権の面積: {details.landRightAreaRaw.toFixed(2)} → {result.landRightArea.toFixed(2)} ㎡（小数点2位切り上げ）</li>
+            <li>敷地利用権の面積: {details.landRightAreaRaw.toFixed(4)} → {result.landRightArea.toFixed(2)} ㎡（小数点2位切り上げ）</li>
             <li>従来の敷地利用権の価格（土地）: {Number(details.landRightPriceRaw).toLocaleString()} → {Number(result.landRightPrice).toLocaleString()} 円（0円の位で四捨五入）</li>
             <li>A = 築年数 × (-0.033): {details.A.toFixed(3)}</li>
-            <li>総階数指数: {details.totalFloorsIndex.toFixed(3)}</li>
             <li>B = 総階数指数 × 0.239: {details.B.toFixed(3)}</li>
+            <li>総階数指数＝総階数÷33 : {details.totalFloorsIndex.toFixed(3)}（小数点3位切捨て、1を超える場合は1）</li>
             <li>C = 所在階 × 0.018: {details.C.toFixed(3)}</li>
             <li>D = 敷地持分狭小度 × (−1.195): {details.D.toFixed(3)}</li>
-            <li>敷地持分狭小度: {details.shareNarrownessDegree.toFixed(3)}（敷地利用権の面積 ÷ 専有部分の面積, 小数点以下3位切り上げ）</li>
-            <li>評価乖離率: {details.deviationRate}</li>
-            <li>評価水準: {details.evaluationLevel}</li>
-            <li>区分所有補正率: {details.sectionalCorrectionRate}</li>
-            <li>区分所有権の価格（建物）: {Number(details.sectionalBuildingPrice).toLocaleString()} 円</li>
-            <li>借家建物の価格（賃貸）: {Number(details.rentalBuildingPrice).toLocaleString()} 円</li>
-            <li>敷地利用権の価額（土地）: {Number(details.landRightValue).toLocaleString()} 円</li>
-            <li>貸家建付地価額（賃貸）: {Number(details.leasedLandValue).toLocaleString()} 円</li>
-            <li>自用地合計: {Number(details.totalSelf).toLocaleString()} 円</li>
-            <li>賃貸合計: {Number(details.totalRental).toLocaleString()} 円</li>
+            <li>敷地持分狭小度＝ {result.landRightArea.toFixed(2)}㎡÷{details.sectionalBuildingPrice ? (result.sectionalBuildingPrice / details.sectionalCorrectionRate).toFixed(2) : ''}㎡ : {details.shareNarrownessDegree.toFixed(3)}（小数点3位切り上げ）</li>
+            <li>評価乖離率＝A+B+C+D+3.220 : {details.deviationRate.toFixed(3)}</li>
+            <li>評価水準 = 1 ÷ 評価乖離率 : {details.evaluationLevel.toFixed(3)}</li>
+            <li>区分所有補正率: {details.sectionalCorrectionRate.toFixed(4)}</li>
           </ul>
+          <div className="mt-4">
+            <div className="font-bold text-blue-800">【自用地の場合】</div>
+            <ul className="text-xs space-y-1 text-gray-900">
+              <li>区分所有権の価格（建物）: {Number(details.sectionalBuildingPrice).toLocaleString()} 円</li>
+              <li>敷地利用権の価額（土地）: {Number(details.landRightValue).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} 円</li>
+              <li>自用地合計: {Number(details.totalSelf).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} 円</li>
+            </ul>
+            <div className="font-bold text-green-800 mt-4">【賃貸の場合】</div>
+            <ul className="text-xs space-y-1 text-gray-900">
+              <li>借家建物の価格（賃貸）: {Number(details.rentalBuildingPrice).toLocaleString()} 円</li>
+              <li>貸家建付地価額（賃貸）: {Number(details.leasedLandValue).toLocaleString(undefined, { minimumFractionDigits: 3, maximumFractionDigits: 3 })} 円</li>
+              <li>賃貸合計: {Number(details.totalRental).toLocaleString(undefined, { minimumFractionDigits: 3, maximumFractionDigits: 3 })} 円</li>
+            </ul>
+          </div>
         </>
       )}
     </div>

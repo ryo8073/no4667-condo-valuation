@@ -27,6 +27,54 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+input, textarea, select {
+  background: #fff;
+  color: #171717;
+}
+
+.bg-white {
+  background-color: #fff !important;
+}
+.bg-blue-50 {
+  background-color: #eff6ff !important;
+}
+.bg-green-50 {
+  background-color: #ecfdf5 !important;
+}
+.text-gray-900 {
+  color: #171717 !important;
+}
+.border-gray-300 {
+  border-color: #d1d5db !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background: var(--background);
+    color: var(--foreground);
+  }
+  input, textarea, select {
+    background: #222 !important;
+    color: #ededed !important;
+    border-color: #444 !important;
+  }
+  .bg-white {
+    background-color: #18181b !important;
+  }
+  .bg-blue-50 {
+    background-color: #1e293b !important;
+  }
+  .bg-green-50 {
+    background-color: #134e4a !important;
+  }
+  .text-gray-900 {
+    color: #ededed !important;
+  }
+  .border-gray-300 {
+    border-color: #444 !important;
+  }
+}
+
 .input {
   @apply w-full px-4 py-3 bg-white border-2 border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-yellow-400 transition placeholder-gray-400 text-gray-900;
 }
