@@ -50,16 +50,16 @@ input, textarea, select {
 
 @media (prefers-color-scheme: dark) {
   body {
-    background: var(--background);
-    color: var(--foreground);
+    background: #18181b;
+    color: #f4f4f5;
   }
   input, textarea, select {
-    background: #222 !important;
-    color: #ededed !important;
-    border-color: #444 !important;
+    background: #23272f !important;
+    color: #f4f4f5 !important;
+    border-color: #3b4252 !important;
   }
   .bg-white {
-    background-color: #18181b !important;
+    background-color: #23272f !important;
   }
   .bg-blue-50 {
     background-color: #1e293b !important;
@@ -67,11 +67,18 @@ input, textarea, select {
   .bg-green-50 {
     background-color: #134e4a !important;
   }
-  .text-gray-900 {
-    color: #ededed !important;
+  .text-gray-900, .text-gray-800 {
+    color: #f4f4f5 !important;
   }
   .border-gray-300 {
-    border-color: #444 !important;
+    border-color: #3b4252 !important;
+  }
+  label {
+    color: #e5e7eb !important;
+  }
+  ::placeholder {
+    color: #888 !important;
+    opacity: 1;
   }
 }
 
