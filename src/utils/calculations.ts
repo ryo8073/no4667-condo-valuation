@@ -39,13 +39,13 @@ export function calculateValuation(input: FormInput) {
   const totalFloorsIndex = input.totalFloors > 33 ? 1 : floor(input.totalFloors / 33, 3);
   const B = floor(totalFloorsIndex * 0.239, 3);
 
-  // C = 所在階 × 0.018（地階の場合は0）
-  const C = input.floor > 0 ? input.floor * 0.018 : 0;
+  // C = 所在階 × 0.018（地階の場合は0、小数点第3位で四捨五入）
+  const C = input.floor > 0 ? Math.round(input.floor * 0.018 * 1000) / 1000 : 0;
 
   // D = 敷地持分狭小度 × (−1.195)
-  // 敷地持分狭小度 = 敷地利用権の面積 ÷ 専有部分の面積（小数点第3位で繰上げ）
+  // 敷地持分狭小度 = 敷地利用権の面積 ÷ 専有部分の面積（小数点第3位で切り上げ）
   const shareNarrownessDegree = roundup(landRightAreaRaw / input.exclusiveArea, 3);
-  // Dも小数点第3位で繰上げ
+  // Dも小数点第3位で切り上げ
   const D = roundup(shareNarrownessDegree * -1.195, 3);
 
   // 評価乖離率
@@ -81,7 +81,7 @@ export function calculateValuation(input: FormInput) {
 
   return {
     buildingAge,
-    landRightArea,
+    landRightArea: roundup(landRightAreaRaw, 2),
     landRightPrice,
     deviationRate,
     deviationRateRaw,

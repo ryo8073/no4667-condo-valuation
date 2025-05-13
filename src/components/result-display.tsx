@@ -76,14 +76,14 @@ export default function ResultDisplay({ result, showDetails }: { result: ResultW
           <h4 className="font-semibold mt-8 mb-3 text-gray-900 text-base">計算ロジック詳細</h4>
           <ul className="text-xs space-y-1 text-gray-900">
             <li>築年数: {details.buildingAgeRaw} → {result.buildingAge} 年（切り上げ）</li>
-            <li>敷地利用権の面積: {details.landRightAreaRaw} → {result.landRightArea} ㎡（小数点2位繰上げ）</li>
+            <li>敷地利用権の面積: {details.landRightAreaRaw.toFixed(2)} → {result.landRightArea.toFixed(2)} ㎡（小数点2位切り上げ）</li>
             <li>従来の敷地利用権の価格（土地）: {Number(details.landRightPriceRaw).toLocaleString()} → {Number(result.landRightPrice).toLocaleString()} 円（0円の位で四捨五入）</li>
-            <li>A = 築年数 × (-0.033): {details.A}</li>
+            <li>A = 築年数 × (-0.033): {details.A.toFixed(3)}</li>
             <li>総階数指数: {details.totalFloorsIndex.toFixed(3)}</li>
             <li>B = 総階数指数 × 0.239: {details.B.toFixed(3)}</li>
-            <li>C = 所在階 × 0.018: {details.C}</li>
+            <li>C = 所在階 × 0.018: {details.C.toFixed(3)}</li>
             <li>D = 敷地持分狭小度 × (−1.195): {details.D.toFixed(3)}</li>
-            <li>敷地持分狭小度: {details.shareNarrownessDegree.toFixed(3)}</li>
+            <li>敷地持分狭小度: {details.shareNarrownessDegree.toFixed(3)}（敷地利用権の面積 ÷ 専有部分の面積, 小数点以下3位切り上げ）</li>
             <li>評価乖離率: {details.deviationRate}</li>
             <li>評価水準: {details.evaluationLevel}</li>
             <li>区分所有補正率: {details.sectionalCorrectionRate}</li>
