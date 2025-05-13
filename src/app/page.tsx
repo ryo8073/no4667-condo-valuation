@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import Layout from "../components/layout";
 import InputForm from "../components/input-form";
 import ResultDisplay from "../components/result-display";
 import { ResultWithDetails } from "../types";
