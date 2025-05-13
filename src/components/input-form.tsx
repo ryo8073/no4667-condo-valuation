@@ -45,7 +45,15 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
   // カンマ区切り入力用onChange
   const handleCommaInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value.replace(/[^\d]/g, "") }));
+    // landAreaのみ小数点2桁まで許可
+    if (name === "landArea") {
+      // 数字と小数点のみ許可し、小数点以下2桁まで
+      const sanitized = value.replace(/[^\d.]/g, "");
+      const match = sanitized.match(/^\d*(\.\d{0,2})?/);
+      setForm((prev) => ({ ...prev, [name]: match ? match[0] : "" }));
+    } else {
+      setForm((prev) => ({ ...prev, [name]: value.replace(/[^\d]/g, "") }));
+    }
   };
 
   // 通常の数値入力
@@ -127,7 +135,13 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
     return (Number(form.roadPrice) * Number(landRightArea)).toLocaleString();
   }, [form.roadPrice, landRightArea]);
 
-  // カンマ区切り表示
+  // landArea専用のカンマ区切り+小数点2桁表示関数
+  const formatLandArea = (val: string | number) => {
+    const n = typeof val === "string" ? Number(val.replace(/,/g, "")) : val;
+    return isNaN(n) ? "" : n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  };
+
+  // カンマ区切り表示（従来の）
   const formatCommaNumber = (val: string | number) => {
     const n = typeof val === "string" ? Number(val.replace(/,/g, "")) : val;
     return isNaN(n) ? "" : n.toLocaleString();
@@ -194,7 +208,7 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
               <span className="ml-1 text-blue-600 cursor-pointer font-bold border border-blue-200 rounded-full w-5 h-5 flex items-center justify-center bg-white">？</span>
             </Tooltip>
           </label>
-          <input id="landArea" type="text" name="landArea" value={formatCommaNumber(form.landArea)} onChange={handleCommaInput} className={`w-full p-3 rounded-lg border border-gray-300 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition ${errors.landArea ? ' border-red-400' : ''}`} min={0} step="0.01" placeholder="例: 1306.00" />
+          <input id="landArea" type="text" name="landArea" value={formatLandArea(form.landArea)} onChange={handleCommaInput} className={`w-full p-3 rounded-lg border border-gray-300 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition ${errors.landArea ? ' border-red-400' : ''}`} min={0} step="0.01" placeholder="例: 1306.00" />
           {errors.landArea && <span className="text-red-500 text-xs mt-1 block">{errors.landArea}</span>}
         </div>
         <div>
