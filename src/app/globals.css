@@ -14,13 +14,6 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
@@ -46,58 +39,6 @@ input, textarea, select {
 }
 .border-gray-300 {
   border-color: #d1d5db !important;
-}
-
-@media (prefers-color-scheme: dark) {
-  body {
-    background: #18181b;
-    color: #f4f4f5;
-  }
-  input, textarea, select {
-    background: #23272f !important;
-    color: #f4f4f5 !important;
-    border-color: #3b4252 !important;
-  }
-  .bg-white {
-    background-color: #23272f !important;
-  }
-  .bg-blue-50 {
-    background-color: #22304a !important;
-  }
-  .bg-green-50 {
-    background-color: #1a3a2a !important;
-  }
-  .text-gray-900, .text-gray-800 {
-    color: #e5e7eb !important;
-  }
-  .border-gray-300 {
-    border-color: #3b4252 !important;
-  }
-  label {
-    color: #e5e7eb !important;
-  }
-  ::placeholder {
-    color: #888 !important;
-    opacity: 1;
-  }
-  .text-blue-800 {
-    color: #93c5fd !important;
-  }
-  .text-blue-900 {
-    color: #60a5fa !important;
-  }
-  .text-green-800 {
-    color: #6ee7b7 !important;
-  }
-  .text-green-900 {
-    color: #34d399 !important;
-  }
-  .border-blue-100 {
-    border-color: #334155 !important;
-  }
-  .border-green-100 {
-    border-color: #14532d !important;
-  }
 }
 
 .input {
