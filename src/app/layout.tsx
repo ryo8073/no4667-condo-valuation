@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "居住用区分所有財産の相続税評価額計算",
-  description: "居宅（居住用）の場合の相続税評価額計算ツール",
+  title: "タワマン税制",
+  description: "居住用区分所有財産の相続税評価額計算ツール",
 };
 
 export default function RootLayout({

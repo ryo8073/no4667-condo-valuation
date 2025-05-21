@@ -3,7 +3,6 @@ import { useState, useMemo } from "react";
 import { FormInput } from "../types";
 import { ResultWithDetails } from "../types";
 import { rootAgent } from "../agents/root-agent";
-import Tooltip from "./tooltip";
 
 // 敷地面積・分子・分母はstringで管理
 interface FormState {
@@ -162,9 +161,7 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
         <div>
           <label className="block text-base font-semibold text-gray-800 mb-2 flex items-center gap-1" htmlFor="inheritanceDate">
             相続開始日
-            <Tooltip content={"被相続人の死亡した日を入力してください。"}>
-              <span className="ml-1 text-blue-600 cursor-pointer font-bold border border-blue-200 rounded-full w-5 h-5 flex items-center justify-center bg-white">？</span>
-            </Tooltip>
+            <span className="text-xs text-gray-500 ml-2">被相続人の死亡した日を入力してください。</span>
           </label>
           <input id="inheritanceDate" type="date" name="inheritanceDate" value={form.inheritanceDate} onChange={handleChange} className={`w-full p-3 rounded-lg border border-gray-300 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition ${errors.inheritanceDate ? ' border-red-400' : ''}`} placeholder="例: 2025-12-01" />
           {errors.inheritanceDate && <span className="text-red-500 text-xs mt-1 block">{errors.inheritanceDate}</span>}
@@ -172,9 +169,7 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
         <div>
           <label className="block text-base font-semibold text-gray-800 mb-2 flex items-center gap-1" htmlFor="constructionDate">
             新築年月日
-            <Tooltip content={"建物が完成した日を入力してください。"}>
-              <span className="ml-1 text-blue-600 cursor-pointer font-bold border border-blue-200 rounded-full w-5 h-5 flex items-center justify-center bg-white">？</span>
-            </Tooltip>
+            <span className="text-xs text-gray-500 ml-2">建物が完成した日を入力してください。</span>
           </label>
           <input id="constructionDate" type="date" name="constructionDate" value={form.constructionDate} onChange={handleChange} className={`w-full p-3 rounded-lg border border-gray-300 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition ${errors.constructionDate ? ' border-red-400' : ''}`} placeholder="例: 2012-02-16" />
           {errors.constructionDate && <span className="text-red-500 text-xs mt-1 block">{errors.constructionDate}</span>}
@@ -183,9 +178,7 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
         <div>
           <label className="block text-base font-semibold text-gray-800 mb-2 flex items-center gap-1" htmlFor="totalFloors">
             総階数
-            <Tooltip content={"登記簿謄本から参照してください。"}>
-              <span className="ml-1 text-blue-600 cursor-pointer font-bold border border-blue-200 rounded-full w-5 h-5 flex items-center justify-center bg-white">？</span>
-            </Tooltip>
+            <span className="text-xs text-gray-500 ml-2">登記簿謄本から参照してください。</span>
           </label>
           <input id="totalFloors" type="number" name="totalFloors" value={form.totalFloors} onChange={handleChange} className={`w-full p-3 rounded-lg border border-gray-300 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition ${errors.totalFloors ? ' border-red-400' : ''}`} min={1} placeholder="例: 10" />
           {errors.totalFloors && <span className="text-red-500 text-xs mt-1 block">{errors.totalFloors}</span>}
@@ -193,9 +186,7 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
         <div>
           <label className="block text-base font-semibold text-gray-800 mb-2 flex items-center gap-1" htmlFor="floor">
             所在階
-            <Tooltip content={"登記簿謄本から参照してください。"}>
-              <span className="ml-1 text-blue-600 cursor-pointer font-bold border border-blue-200 rounded-full w-5 h-5 flex items-center justify-center bg-white">？</span>
-            </Tooltip>
+            <span className="text-xs text-gray-500 ml-2">登記簿謄本から参照してください。</span>
           </label>
           <input id="floor" type="number" name="floor" value={form.floor} onChange={handleChange} className={`w-full p-3 rounded-lg border border-gray-300 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition ${errors.floor ? ' border-red-400' : ''}`} min={0} max={form.totalFloors} placeholder="例: 7" />
           {errors.floor && <span className="text-red-500 text-xs mt-1 block">{errors.floor}</span>}
@@ -203,9 +194,7 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
         <div>
           <label className="block text-base font-semibold text-gray-800 mb-2 flex items-center gap-1" htmlFor="exclusiveArea">
             専有部分の面積(㎡)
-            <Tooltip content={"登記簿謄本から参照してください。"}>
-              <span className="ml-1 text-blue-600 cursor-pointer font-bold border border-blue-200 rounded-full w-5 h-5 flex items-center justify-center bg-white">？</span>
-            </Tooltip>
+            <span className="text-xs text-gray-500 ml-2">登記簿謄本から参照してください。</span>
           </label>
           <input id="exclusiveArea" type="number" name="exclusiveArea" value={form.exclusiveArea} onChange={handleChange} className={`w-full p-3 rounded-lg border border-gray-300 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition ${errors.exclusiveArea ? ' border-red-400' : ''}`} min={0} step="0.01" placeholder="例: 63.26" />
           {errors.exclusiveArea && <span className="text-red-500 text-xs mt-1 block">{errors.exclusiveArea}</span>}
@@ -213,9 +202,7 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
         <div>
           <label className="block text-base font-semibold text-gray-800 mb-2 flex items-center gap-1" htmlFor="landArea">
             敷地の面積(㎡)
-            <Tooltip content={"登記簿謄本から参照してください。"}>
-              <span className="ml-1 text-blue-600 cursor-pointer font-bold border border-blue-200 rounded-full w-5 h-5 flex items-center justify-center bg-white">？</span>
-            </Tooltip>
+            <span className="text-xs text-gray-500 ml-2">登記簿謄本から参照してください。</span>
           </label>
           <input
             id="landArea"
@@ -235,9 +222,7 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
         <div>
           <label className="block text-base font-semibold text-gray-800 mb-2 flex items-center gap-1" htmlFor="landShareNumerator">
             敷地権の割合
-            <Tooltip content={"登記簿謄本に記載の敷地権割合（例：6608 / 369648）\n分子・分母ともに入力してください。"}>
-              <span className="ml-1 text-blue-600 cursor-pointer font-bold border border-blue-200 rounded-full w-5 h-5 flex items-center justify-center bg-white">？</span>
-            </Tooltip>
+            <span className="text-xs text-gray-500 ml-2">登記簿謄本に記載の敷地権割合（例：6608 / 369648） 分子・分母ともに入力してください。</span>
           </label>
           <div className="flex items-center gap-2">
             <input id="landShareNumerator" type="text" name="landShareNumerator" value={formatCommaNumber(form.landShareNumerator)} onChange={handleCommaInput} className={`p-3 rounded-lg border border-gray-300 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition w-24 ${errors.landShareNumerator ? ' border-red-400' : ''}`} min={1} placeholder="分子 例: 6608" />
@@ -256,10 +241,7 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
         <div>
           <label className="block text-base font-semibold text-gray-800 mb-2 flex items-center gap-1" htmlFor="buildingPrice">
             従来の区分所有権の価格（建物）
-            <Tooltip content={"固定資産税評価額を入力してください。"}>
-              <span className="ml-1 text-blue-600 cursor-pointer font-bold border border-blue-200 rounded-full w-5 h-5 flex items-center justify-center bg-white">？</span>
-            </Tooltip>
-            <span className="text-xs text-gray-500 ml-1">（固定資産税評価）</span>
+            <span className="text-xs text-gray-500 ml-2">固定資産税評価額を入力してください。</span>
           </label>
           <input id="buildingPrice" type="text" name="buildingPrice" value={formatCommaNumber(form.buildingPrice)} onChange={handleCommaInput} className={`w-full p-3 rounded-lg border border-gray-300 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition ${errors.buildingPrice ? ' border-red-400' : ''}`} min={0} placeholder="例: 6148686" />
           {errors.buildingPrice && <span className="text-red-500 text-xs mt-1 block">{errors.buildingPrice}</span>}
@@ -267,9 +249,7 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
         <div>
           <label className="block text-base font-semibold text-gray-800 mb-2 flex items-center gap-1" htmlFor="roadPrice">
             前面路線価(円)
-            <Tooltip content={"国税庁全国路線価図を参照してください。"}>
-              <span className="ml-1 text-blue-600 cursor-pointer font-bold border border-blue-200 rounded-full w-5 h-5 flex items-center justify-center bg-white">？</span>
-            </Tooltip>
+            <span className="text-xs text-gray-500 ml-2">国税庁全国路線価図を参照してください。</span>
           </label>
           <input id="roadPrice" type="text" name="roadPrice" value={formatCommaNumber(form.roadPrice)} onChange={handleCommaInput} className={`w-full p-3 rounded-lg border border-gray-300 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition ${errors.roadPrice ? ' border-red-400' : ''}`} min={0} placeholder="例: 68000" />
           {errors.roadPrice && <span className="text-red-500 text-xs mt-1 block">{errors.roadPrice}</span>}
@@ -277,9 +257,7 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
         <div>
           <label className="block text-base font-semibold text-gray-800 mb-2 flex items-center gap-1" htmlFor="roadPriceRate">
             路線価調整率
-            <Tooltip content={"奥行、間口等の調整はしない（1で固定）"}>
-              <span className="ml-1 text-blue-600 cursor-pointer font-bold border border-blue-200 rounded-full w-5 h-5 flex items-center justify-center bg-white">？</span>
-            </Tooltip>
+            <span className="text-xs text-gray-500 ml-2">奥行、間口等の調整はしない（1で固定）</span>
           </label>
           <input id="roadPriceRate" type="number" name="roadPriceRate" value={form.roadPriceRate} readOnly className="w-full p-3 rounded-lg border border-gray-200 bg-gray-100 cursor-not-allowed" />
           <span className="text-xs text-gray-500">1で固定</span>
@@ -290,9 +268,7 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
         <div>
           <label className="block text-base font-semibold text-gray-800 mb-2 flex items-center gap-1" htmlFor="leaseholdRate">
             賃貸している場合、借地権割合
-            <Tooltip content={"A:90% B:80% C:70% D:60% E:50% F:40% G:30%\n該当する割合を選択してください。"}>
-              <span className="ml-1 text-blue-600 cursor-pointer font-bold border border-blue-200 rounded-full w-5 h-5 flex items-center justify-center bg-white">？</span>
-            </Tooltip>
+            <span className="text-xs text-gray-500 ml-2">A:90% B:80% C:70% D:60% E:50% F:40% G:30% 該当する割合を選択してください。</span>
           </label>
           <div className="flex flex-wrap gap-2 mt-1">
             {[0.9,0.8,0.7,0.6,0.5,0.4,0.3].map((rate, idx) => (
@@ -311,9 +287,7 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
         <div>
           <label className="block text-base font-semibold text-gray-800 mb-2 flex items-center gap-1" htmlFor="rentalRate">
             賃貸割合（%）
-            <Tooltip content={"全国路線価図に表示。\n相続時に実際に賃貸されている面積割合を入力してください。"}>
-              <span className="ml-1 text-blue-600 cursor-pointer font-bold border border-blue-200 rounded-full w-5 h-5 flex items-center justify-center bg-white">？</span>
-            </Tooltip>
+            <span className="text-xs text-gray-500 ml-2">全国路線価図に表示。相続時に実際に賃貸されている面積割合を入力してください。</span>
           </label>
           <input id="rentalRate" type="number" name="rentalRate" value={form.rentalRate} onChange={handleChange} className="w-full p-3 rounded-lg border border-gray-300 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition" min={0} max={100} placeholder="例: 100" />
           {errors.rentalRate && <span className="text-red-500 text-xs mt-1 block">{errors.rentalRate}</span>}
