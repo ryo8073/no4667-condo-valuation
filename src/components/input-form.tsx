@@ -180,7 +180,7 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
             総階数
             <span className="text-xs text-gray-500 ml-2">登記簿謄本から参照してください。</span>
           </label>
-          <input id="totalFloors" type="number" name="totalFloors" value={form.totalFloors} onChange={handleChange} className={`w-full p-3 rounded-lg border border-gray-300 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition ${errors.totalFloors ? ' border-red-400' : ''}`} min={1} placeholder="例: 10" />
+          <input id="totalFloors" type="number" name="totalFloors" value={form.totalFloors} onChange={handleChange} className={`w-full p-3 rounded-lg border border-gray-300 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition ${errors.totalFloors ? ' border-red-400' : ''}`} min={1} placeholder="例: 10" inputMode="numeric" />
           {errors.totalFloors && <span className="text-red-500 text-xs mt-1 block">{errors.totalFloors}</span>}
         </div>
         <div>
@@ -188,7 +188,7 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
             所在階
             <span className="text-xs text-gray-500 ml-2">登記簿謄本から参照してください。</span>
           </label>
-          <input id="floor" type="number" name="floor" value={form.floor} onChange={handleChange} className={`w-full p-3 rounded-lg border border-gray-300 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition ${errors.floor ? ' border-red-400' : ''}`} min={0} max={form.totalFloors} placeholder="例: 7" />
+          <input id="floor" type="number" name="floor" value={form.floor} onChange={handleChange} className={`w-full p-3 rounded-lg border border-gray-300 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition ${errors.floor ? ' border-red-400' : ''}`} min={0} max={form.totalFloors} placeholder="例: 7" inputMode="numeric" />
           {errors.floor && <span className="text-red-500 text-xs mt-1 block">{errors.floor}</span>}
         </div>
         <div>
@@ -196,7 +196,7 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
             専有部分の面積(㎡)
             <span className="text-xs text-gray-500 ml-2">登記簿謄本から参照してください。</span>
           </label>
-          <input id="exclusiveArea" type="number" name="exclusiveArea" value={form.exclusiveArea} onChange={handleChange} className={`w-full p-3 rounded-lg border border-gray-300 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition ${errors.exclusiveArea ? ' border-red-400' : ''}`} min={0} step="0.01" placeholder="例: 63.26" />
+          <input id="exclusiveArea" type="number" name="exclusiveArea" value={form.exclusiveArea} onChange={handleChange} className={`w-full p-3 rounded-lg border border-gray-300 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition ${errors.exclusiveArea ? ' border-red-400' : ''}`} min={0} step="0.01" placeholder="例: 63.26" inputMode="numeric" />
           {errors.exclusiveArea && <span className="text-red-500 text-xs mt-1 block">{errors.exclusiveArea}</span>}
         </div>
         <div>
@@ -216,6 +216,8 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
             min={0}
             step="0.01"
             placeholder="例: 1306.00"
+            inputMode="numeric"
+            pattern="[0-9.]*"
           />
           {errors.landArea && <span className="text-red-500 text-xs mt-1 block">{errors.landArea}</span>}
         </div>
@@ -225,9 +227,9 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
             <span className="text-xs text-gray-500 ml-2">登記簿謄本に記載の敷地権割合（例：6608 / 369648） 分子・分母ともに入力してください。</span>
           </label>
           <div className="flex items-center gap-2">
-            <input id="landShareNumerator" type="text" name="landShareNumerator" value={formatCommaNumber(form.landShareNumerator)} onChange={handleCommaInput} className={`p-3 rounded-lg border border-gray-300 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition w-24 ${errors.landShareNumerator ? ' border-red-400' : ''}`} min={1} placeholder="分子 例: 6608" />
+            <input id="landShareNumerator" type="text" name="landShareNumerator" value={formatCommaNumber(form.landShareNumerator)} onChange={handleCommaInput} className={`p-3 rounded-lg border border-gray-300 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition w-24 ${errors.landShareNumerator ? ' border-red-400' : ''}`} min={1} placeholder="分子 例: 6608" inputMode="numeric" pattern="[0-9]*" />
             <span className="font-bold text-lg text-gray-700">/</span>
-            <input id="landShareDenominator" type="text" name="landShareDenominator" value={formatCommaNumber(form.landShareDenominator)} onChange={handleCommaInput} className={`p-3 rounded-lg border border-gray-300 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition w-24 ${errors.landShareDenominator ? ' border-red-400' : ''}`} min={1} placeholder="分母 例: 369648" />
+            <input id="landShareDenominator" type="text" name="landShareDenominator" value={formatCommaNumber(form.landShareDenominator)} onChange={handleCommaInput} className={`p-3 rounded-lg border border-gray-300 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition w-24 ${errors.landShareDenominator ? ' border-red-400' : ''}`} min={1} placeholder="分母 例: 369648" inputMode="numeric" pattern="[0-9]*" />
           </div>
           <span className="text-xs text-gray-500 mt-1 block">
             {formatCommaNumber(form.landShareNumerator)} / {formatCommaNumber(form.landShareDenominator)}
@@ -243,7 +245,7 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
             従来の区分所有権の価格（建物）
             <span className="text-xs text-gray-500 ml-2">固定資産税評価額を入力してください。</span>
           </label>
-          <input id="buildingPrice" type="text" name="buildingPrice" value={formatCommaNumber(form.buildingPrice)} onChange={handleCommaInput} className={`w-full p-3 rounded-lg border border-gray-300 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition ${errors.buildingPrice ? ' border-red-400' : ''}`} min={0} placeholder="例: 6148686" />
+          <input id="buildingPrice" type="text" name="buildingPrice" value={formatCommaNumber(form.buildingPrice)} onChange={handleCommaInput} className={`w-full p-3 rounded-lg border border-gray-300 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition ${errors.buildingPrice ? ' border-red-400' : ''}`} min={0} placeholder="例: 6148686" inputMode="numeric" pattern="[0-9]*" />
           {errors.buildingPrice && <span className="text-red-500 text-xs mt-1 block">{errors.buildingPrice}</span>}
         </div>
         <div>
@@ -251,7 +253,7 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
             前面路線価(円)
             <span className="text-xs text-gray-500 ml-2">国税庁全国路線価図を参照してください。</span>
           </label>
-          <input id="roadPrice" type="text" name="roadPrice" value={formatCommaNumber(form.roadPrice)} onChange={handleCommaInput} className={`w-full p-3 rounded-lg border border-gray-300 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition ${errors.roadPrice ? ' border-red-400' : ''}`} min={0} placeholder="例: 68000" />
+          <input id="roadPrice" type="text" name="roadPrice" value={formatCommaNumber(form.roadPrice)} onChange={handleCommaInput} className={`w-full p-3 rounded-lg border border-gray-300 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition ${errors.roadPrice ? ' border-red-400' : ''}`} min={0} placeholder="例: 68000" inputMode="numeric" pattern="[0-9]*" />
           {errors.roadPrice && <span className="text-red-500 text-xs mt-1 block">{errors.roadPrice}</span>}
         </div>
         <div>
@@ -289,7 +291,7 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
             賃貸割合（%）
             <span className="text-xs text-gray-500 ml-2">全国路線価図に表示。相続時に実際に賃貸されている面積割合を入力してください。</span>
           </label>
-          <input id="rentalRate" type="number" name="rentalRate" value={form.rentalRate} onChange={handleChange} className="w-full p-3 rounded-lg border border-gray-300 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition" min={0} max={100} placeholder="例: 100" />
+          <input id="rentalRate" type="number" name="rentalRate" value={form.rentalRate} onChange={handleChange} className="w-full p-3 rounded-lg border border-gray-300 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition" min={0} max={100} placeholder="例: 100" inputMode="numeric" />
           {errors.rentalRate && <span className="text-red-500 text-xs mt-1 block">{errors.rentalRate}</span>}
         </div>
       </div>
