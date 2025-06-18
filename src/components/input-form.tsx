@@ -196,7 +196,7 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
             専有部分の面積(㎡)
             <span className="text-xs text-gray-500 ml-2">登記簿謄本から参照してください。</span>
           </label>
-          <input id="exclusiveArea" type="number" name="exclusiveArea" value={form.exclusiveArea} onChange={handleChange} className={`w-full p-3 rounded-lg border border-gray-300 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition ${errors.exclusiveArea ? ' border-red-400' : ''}`} min={0} step="0.01" placeholder="例: 63.26" inputMode="numeric" />
+          <input id="exclusiveArea" type="number" name="exclusiveArea" value={form.exclusiveArea} onChange={handleChange} className={`w-full p-3 rounded-lg border border-gray-300 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition ${errors.exclusiveArea ? ' border-red-400' : ''}`} min={0} step="0.01" placeholder="例: 63.26" inputMode="decimal" />
           {errors.exclusiveArea && <span className="text-red-500 text-xs mt-1 block">{errors.exclusiveArea}</span>}
         </div>
         <div>
@@ -216,7 +216,7 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
             min={0}
             step="0.01"
             placeholder="例: 1306.00"
-            inputMode="numeric"
+            inputMode="decimal"
             pattern="[0-9.]*"
           />
           {errors.landArea && <span className="text-red-500 text-xs mt-1 block">{errors.landArea}</span>}
@@ -291,7 +291,7 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
             賃貸割合（%）
             <span className="text-xs text-gray-500 ml-2">全国路線価図に表示。相続時に実際に賃貸されている面積割合を入力してください。</span>
           </label>
-          <input id="rentalRate" type="number" name="rentalRate" value={form.rentalRate} onChange={handleChange} className="w-full p-3 rounded-lg border border-gray-300 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition" min={0} max={100} placeholder="例: 100" inputMode="numeric" />
+          <input id="rentalRate" type="number" name="rentalRate" value={form.rentalRate} onChange={handleChange} className="w-full p-3 rounded-lg border border-gray-300 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition" min={0} max={100} placeholder="例: 100" inputMode="decimal" step="0.01" />
           {errors.rentalRate && <span className="text-red-500 text-xs mt-1 block">{errors.rentalRate}</span>}
         </div>
       </div>
