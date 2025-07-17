@@ -27,7 +27,7 @@ const initialFormState: FormState = {
   totalFloors: 10,
   floor: 1,
   exclusiveArea: 0,
-  landArea: "0",
+  landArea: "",
   landShareNumerator: "1",
   landShareDenominator: "1",
   buildingPrice: "0",
@@ -85,7 +85,7 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
     totalFloors: form.totalFloors,
     floor: form.floor,
     exclusiveArea: form.exclusiveArea,
-    landArea: Number(form.landArea.replace(/,/g, "")),
+    landArea: form.landArea ? Number(form.landArea.replace(/,/g, "")) : 0,
     landShareNumerator: Number(form.landShareNumerator.replace(/,/g, "")),
     landShareDenominator: Number(form.landShareDenominator.replace(/,/g, "")),
     buildingPrice: Number(form.buildingPrice.replace(/,/g, "")),
@@ -97,11 +97,12 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('計算開始:', getNumericForm());
-    const res = rootAgent(getNumericForm());
+    const numericForm = getNumericForm();
+    console.log('計算開始:', numericForm);
+    const res = rootAgent(numericForm);
     console.log('計算結果:', res);
     if (res.error) {
-      console.log('エラー:', res.error);
+      console.log('エラー詳細:', JSON.stringify(res.error, null, 2));
       setErrors(
         Object.fromEntries(
           Object.entries(res.error).map(([k, v]) => [k, (v as { _errors?: string[] })?._errors?.[0] || ""])
