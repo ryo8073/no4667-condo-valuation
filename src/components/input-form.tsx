@@ -97,10 +97,17 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    console.log('=== 計算処理開始 ===');
+    console.log('フォーム状態:', form);
+    
     const numericForm = getNumericForm();
-    console.log('計算開始:', numericForm);
+    console.log('数値変換後:', numericForm);
+    
+    console.log('rootAgent呼び出し前');
     const res = rootAgent(numericForm);
+    console.log('rootAgent呼び出し後');
     console.log('計算結果:', res);
+    
     if (res.error) {
       console.log('エラー詳細:', JSON.stringify(res.error, null, 2));
       setErrors(
@@ -108,12 +115,17 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
           Object.entries(res.error).map(([k, v]) => [k, (v as { _errors?: string[] })?._errors?.[0] || ""])
         )
       );
+      console.log('エラー設定完了');
       onResult(null);
+      console.log('onResult(null)呼び出し完了');
     } else {
       console.log('成功:', res.result);
       setErrors({});
+      console.log('エラークリア完了');
       onResult(res.result ?? null);
+      console.log('onResult(結果)呼び出し完了');
     }
+    console.log('=== 計算処理終了 ===');
   };
 
   // 築年数

@@ -42,13 +42,20 @@ interface ResultWithDetails {
 }
 
 export default function ResultDisplay({ result, showDetails }: { result: ResultWithDetails | null, showDetails?: boolean }) {
+  console.log('=== ResultDisplay レンダリング ===');
+  console.log('result:', result);
+  console.log('showDetails:', showDetails);
+  
   if (!result) {
+    console.log('結果なし - デフォルト表示');
     return (
       <div className="p-8 bg-white rounded-2xl shadow-xl mt-8 max-w-xl mx-auto border-2 border-dashed border-blue-200 flex flex-col items-center justify-center min-h-[180px]">
         <span className="text-gray-400 text-lg font-semibold">ここに計算結果が表示されます</span>
       </div>
     );
   }
+  
+  console.log('結果あり - 計算結果表示');
   const details = result.details;
   return (
     <div className="p-8 bg-white rounded-2xl shadow-xl mt-8 max-w-xl mx-auto border border-blue-100">

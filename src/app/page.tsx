@@ -9,16 +9,26 @@ export default function Page() {
   const resultRef = useRef<HTMLDivElement>(null);
 
   const handleResult = (newResult: ResultWithDetails | null) => {
+    console.log('=== 結果処理開始 ===');
+    console.log('新しい結果:', newResult);
+    
     setResult(newResult);
+    console.log('setResult完了');
+    
     // 計算結果が表示されたら自動スクロール
     if (newResult && resultRef.current) {
+      console.log('自動スクロール実行');
       setTimeout(() => {
         resultRef.current?.scrollIntoView({ 
           behavior: 'smooth', 
           block: 'start' 
         });
+        console.log('スクロール完了');
       }, 100);
+    } else {
+      console.log('自動スクロールスキップ:', { newResult: !!newResult, resultRef: !!resultRef.current });
     }
+    console.log('=== 結果処理終了 ===');
   };
 
   return (
