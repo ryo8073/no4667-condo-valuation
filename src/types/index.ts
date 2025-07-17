@@ -19,12 +19,15 @@ export type CalculationResult = {
   landRightArea: number;
   landRightPrice: number;
   deviationRate: number;
+  deviationRateRaw: number;
   evaluationLevel: number;
   sectionalCorrectionRate: number;
   sectionalBuildingPrice: number;
   rentalBuildingPrice: number;
   landRightValue: number;
   leasedLandValue: number;
+  totalSelf: number;
+  totalRental: number;
 };
 
 export type CalculationDetails = {
@@ -53,7 +56,5 @@ export type CalculationDetails = {
 };
 
 export type ResultWithDetails = CalculationResult & {
-  totalSelf: number;
-  totalRental: number;
   details: CalculationDetails;
 }; 

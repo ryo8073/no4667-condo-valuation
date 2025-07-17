@@ -97,8 +97,11 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    console.log('計算開始:', getNumericForm());
     const res = rootAgent(getNumericForm());
+    console.log('計算結果:', res);
     if (res.error) {
+      console.log('エラー:', res.error);
       setErrors(
         Object.fromEntries(
           Object.entries(res.error).map(([k, v]) => [k, (v as { _errors?: string[] })?._errors?.[0] || ""])
@@ -106,6 +109,7 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
       );
       onResult(null);
     } else {
+      console.log('成功:', res.result);
       setErrors({});
       onResult(res.result ?? null);
     }
