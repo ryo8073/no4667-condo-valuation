@@ -232,7 +232,6 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
             className={`w-full p-3 rounded-lg border border-gray-300 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition ${errors.landArea ? ' border-red-400' : ''}`}
             placeholder="例: 1306.00"
             inputMode="decimal"
-            pattern="[0-9.]*"
           />
           {errors.landArea && <span className="text-red-500 text-xs mt-1 block">{errors.landArea}</span>}
         </div>
@@ -242,9 +241,9 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
             <span className="text-xs text-gray-500 ml-2">登記簿謄本に記載の敷地権割合（例：6608 / 369648） 分子・分母ともに入力してください。</span>
           </label>
           <div className="flex items-center gap-2">
-            <input id="landShareNumerator" type="text" name="landShareNumerator" value={formatCommaNumber(form.landShareNumerator)} onChange={handleCommaInput} className={`p-3 rounded-lg border border-gray-300 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition w-24 ${errors.landShareNumerator ? ' border-red-400' : ''}`} placeholder="分子 例: 6608" inputMode="numeric" pattern="[0-9]*" />
+            <input id="landShareNumerator" type="text" name="landShareNumerator" value={formatCommaNumber(form.landShareNumerator)} onChange={handleCommaInput} className={`p-3 rounded-lg border border-gray-300 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition w-24 ${errors.landShareNumerator ? ' border-red-400' : ''}`} placeholder="分子 例: 6608" inputMode="numeric" />
             <span className="font-bold text-lg text-gray-700">/</span>
-            <input id="landShareDenominator" type="text" name="landShareDenominator" value={formatCommaNumber(form.landShareDenominator)} onChange={handleCommaInput} className={`p-3 rounded-lg border border-gray-300 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition w-24 ${errors.landShareDenominator ? ' border-red-400' : ''}`} placeholder="分母 例: 369648" inputMode="numeric" pattern="[0-9]*" />
+            <input id="landShareDenominator" type="text" name="landShareDenominator" value={formatCommaNumber(form.landShareDenominator)} onChange={handleCommaInput} className={`p-3 rounded-lg border border-gray-300 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition w-24 ${errors.landShareDenominator ? ' border-red-400' : ''}`} placeholder="分母 例: 369648" inputMode="numeric" />
           </div>
           <span className="text-xs text-gray-500 mt-1 block">
             {formatCommaNumber(form.landShareNumerator)} / {formatCommaNumber(form.landShareDenominator)}
@@ -260,7 +259,7 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
             従来の区分所有権の価格（建物）
             <span className="text-xs text-gray-500 ml-2">固定資産税評価額を入力してください。</span>
           </label>
-          <input id="buildingPrice" type="text" name="buildingPrice" value={formatCommaNumber(form.buildingPrice)} onChange={handleCommaInput} className={`w-full p-3 rounded-lg border border-gray-300 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition ${errors.buildingPrice ? ' border-red-400' : ''}`} placeholder="例: 6148686" inputMode="numeric" pattern="[0-9]*" />
+          <input id="buildingPrice" type="text" name="buildingPrice" value={formatCommaNumber(form.buildingPrice)} onChange={handleCommaInput} className={`w-full p-3 rounded-lg border border-gray-300 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition ${errors.buildingPrice ? ' border-red-400' : ''}`} placeholder="例: 6148686" inputMode="numeric" />
           {errors.buildingPrice && <span className="text-red-500 text-xs mt-1 block">{errors.buildingPrice}</span>}
         </div>
         <div>
@@ -268,7 +267,7 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
             前面路線価(円)
             <span className="text-xs text-gray-500 ml-2">国税庁全国路線価図を参照してください。</span>
           </label>
-          <input id="roadPrice" type="text" name="roadPrice" value={formatCommaNumber(form.roadPrice)} onChange={handleCommaInput} className={`w-full p-3 rounded-lg border border-gray-300 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition ${errors.roadPrice ? ' border-red-400' : ''}`} placeholder="例: 68000" inputMode="numeric" pattern="[0-9]*" />
+          <input id="roadPrice" type="text" name="roadPrice" value={formatCommaNumber(form.roadPrice)} onChange={handleCommaInput} className={`w-full p-3 rounded-lg border border-gray-300 bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:border-blue-400 transition ${errors.roadPrice ? ' border-red-400' : ''}`} placeholder="例: 68000" inputMode="numeric" />
           {errors.roadPrice && <span className="text-red-500 text-xs mt-1 block">{errors.roadPrice}</span>}
         </div>
         <div>
