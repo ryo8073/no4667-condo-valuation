@@ -42,6 +42,10 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [landAreaFocused, setLandAreaFocused] = useState(false);
 
+  console.log('=== InputForm レンダリング ===');
+  console.log('現在のフォーム状態:', form);
+  console.log('現在のエラー状態:', errors);
+
   // カンマ区切り入力用onChange
   const handleCommaInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -173,7 +177,7 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 p-8 bg-blue-50 rounded-2xl shadow-xl max-w-lg w-full mx-auto border border-blue-100">
+    <form onSubmit={handleSubmit} noValidate className="space-y-6 p-8 bg-blue-50 rounded-2xl shadow-xl max-w-lg w-full mx-auto border border-blue-100">
       <div className="grid grid-cols-1 gap-6">
         <div>
           <label className="block text-base font-semibold text-gray-800 mb-2 flex items-center gap-1" htmlFor="inheritanceDate">
@@ -309,7 +313,17 @@ export default function InputForm({ onResult }: { onResult: (result: ResultWithD
           {errors.rentalRate && <span className="text-red-500 text-xs mt-1 block">{errors.rentalRate}</span>}
         </div>
       </div>
-      <button type="submit" className="w-full h-14 text-lg mt-4 rounded-xl bg-blue-600 text-white font-bold shadow-md hover:bg-blue-700 transition">計算する</button>
+      <button 
+        type="button" 
+        onClick={() => {
+          console.log('計算ボタンがクリックされました');
+          const fakeEvent = { preventDefault: () => {} } as React.FormEvent;
+          handleSubmit(fakeEvent);
+        }}
+        className="w-full h-14 text-lg mt-4 rounded-xl bg-blue-600 text-white font-bold shadow-md hover:bg-blue-700 transition"
+      >
+        計算する
+      </button>
       <p className="text-sm text-gray-500 mt-4 text-center">計算ボタンを押すと、下記に計算結果が表示されます</p>
     </form>
   );
