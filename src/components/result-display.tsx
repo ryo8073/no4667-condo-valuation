@@ -1,116 +1,260 @@
-// import { CalculationResult } from "../types";
+"use client";
+import { useState } from "react";
+import { ResultWithDetails, CorrectionCase } from "../types";
 
-function formatNumber(n: number, digits = 0) {
-  return n.toLocaleString(undefined, { minimumFractionDigits: digits, maximumFractionDigits: digits });
+function formatYen(n: number): string {
+  return Math.floor(n).toLocaleString();
 }
 
-interface CalculationDetails {
-  buildingAgeRaw: number;
-  landRightAreaRaw: number;
-  landRightPriceRaw: number;
-  A: number;
-  B: number;
-  C: number;
-  D: number;
-  landRightAreaD: number | null;
-  sectionalCorrectionRate: number;
-  deviationRate: number;
-  evaluationLevel: number;
-  sectionalBuildingPrice: number;
-  rentalBuildingPrice: number;
-  landRightValue: number;
-  leasedLandValue: number;
-  totalSelf: number;
-  totalRental: number;
-  totalFloorsIndexDisplay: number;
-  totalFloorsIndex: number;
-  shareNarrowness: number;
-  shareNarrownessDegree: number;
+function formatDecimal(n: number, digits: number): string {
+  return n.toFixed(digits);
 }
 
-interface ResultWithDetails {
-  sectionalBuildingPrice: number;
-  landRightValue: number;
-  totalSelf: number;
-  rentalBuildingPrice: number;
-  leasedLandValue: number;
-  totalRental: number;
-  landRightArea: number;
-  landRightPrice: number;
-  details: CalculationDetails;
-  buildingAge: number;
+function correctionCaseLabel(c: CorrectionCase): string {
+  switch (c) {
+    case "none":
+      return "評価乖離率 ≤ 0 のため補正なし";
+    case "multiply06":
+      return "評価水準 < 0.6 → 評価乖離率 × 0.6";
+    case "deviation":
+      return "評価水準 > 1 → 評価乖離率をそのまま適用";
+    case "no_correction":
+      return "0.6 ≤ 評価水準 ≤ 1 → 補正なし (1.000)";
+  }
 }
 
-export default function ResultDisplay({ result, showDetails }: { result: ResultWithDetails | null, showDetails?: boolean }) {
-  console.log('=== ResultDisplay レンダリング ===');
-  console.log('result:', result);
-  console.log('showDetails:', showDetails);
-  
+export default function ResultDisplay({
+  result,
+  showDetails,
+}: {
+  result: ResultWithDetails | null;
+  showDetails?: boolean;
+}) {
+  const [detailsOpen, setDetailsOpen] = useState(false);
+
   if (!result) {
-    console.log('結果なし - デフォルト表示');
     return (
-      <div className="p-8 bg-white rounded-2xl shadow-xl mt-8 max-w-xl mx-auto border-2 border-dashed border-blue-200 flex flex-col items-center justify-center min-h-[180px]">
-        <span className="text-gray-400 text-lg font-semibold">ここに計算結果が表示されます</span>
+      <div className="p-8 bg-white rounded-2xl shadow-lg mt-8 max-w-2xl mx-auto border-2 border-dashed border-gray-200 flex flex-col items-center justify-center min-h-[160px]">
+        <svg className="w-10 h-10 text-gray-300 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+        </svg>
+        <p className="text-gray-400 text-sm font-medium">上のフォームに入力後、「計算する」を押してください</p>
       </div>
     );
   }
-  
-  console.log('結果あり - 計算結果表示');
-  const details = result.details;
+
+  const d = result.details;
+
   return (
-    <div className="p-8 bg-white rounded-2xl shadow-xl mt-8 max-w-xl mx-auto border border-blue-100">
-      <h2 className="text-2xl font-bold mb-8 text-gray-900 text-center border-b pb-3 tracking-wide">計算結果</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="bg-blue-50 rounded-xl p-6 shadow-sm">
-          <h3 className="font-bold text-blue-800 text-lg mb-4 border-b pb-2">自用地の場合</h3>
-          <ul className="space-y-3 text-gray-900 text-base">
-            <li><span className="font-medium">区分所有権の価格（建物）:</span> <span className="font-sans">{formatNumber(result.sectionalBuildingPrice, 0)} 円</span></li>
-            <li><span className="font-medium">敷地利用権の価格（土地）:</span> <span className="font-sans">{formatNumber(result.landRightValue, 0)} 円</span></li>
-            <li className="font-bold text-lg text-blue-900 mt-3">評価額合計: <span className="font-sans">{formatNumber(result.totalSelf, 0)} 円</span></li>
-          </ul>
+    <div className="mt-8 max-w-2xl mx-auto space-y-4">
+      {/* メイン結果 */}
+      <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+        <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-4">
+          <h2 className="text-lg font-bold text-white">計算結果</h2>
         </div>
-        <div className="bg-green-50 rounded-xl p-6 shadow-sm">
-          <h3 className="font-bold text-green-800 text-lg mb-4 border-b pb-2">賃貸した場合</h3>
-          <ul className="space-y-3 text-gray-900 text-base">
-            <li><span className="font-medium">区分所有権の価格（建物）:</span> <span className="font-sans">{formatNumber(result.rentalBuildingPrice, 0)} 円</span></li>
-            <li><span className="font-medium">敷地利用権の価格（土地）:</span> <span className="font-sans">{formatNumber(result.leasedLandValue, 0)} 円</span></li>
-            <li className="font-bold text-lg text-green-900 mt-3">評価額合計: <span className="font-sans">{formatNumber(result.totalRental, 0)} 円</span></li>
-          </ul>
+
+        <div className="p-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* 自用の場合 */}
+            <div className="bg-blue-50 rounded-xl p-5 border border-blue-100">
+              <h3 className="font-bold text-blue-800 text-sm mb-4 pb-2 border-b border-blue-200">
+                自用の場合
+              </h3>
+              <dl className="space-y-3 text-sm">
+                <div className="flex justify-between">
+                  <dt className="text-gray-600">建物（区分所有権）</dt>
+                  <dd className="font-semibold text-gray-900">{formatYen(result.sectionalBuildingPrice)} 円</dd>
+                </div>
+                <div className="flex justify-between">
+                  <dt className="text-gray-600">土地（敷地利用権）</dt>
+                  <dd className="font-semibold text-gray-900">{formatYen(result.landRightValue)} 円</dd>
+                </div>
+                <div className="flex justify-between pt-3 border-t border-blue-200">
+                  <dt className="font-bold text-blue-900">評価額合計</dt>
+                  <dd className="font-bold text-blue-900 text-lg">{formatYen(result.totalSelf)} 円</dd>
+                </div>
+              </dl>
+            </div>
+
+            {/* 賃貸の場合 */}
+            <div className="bg-emerald-50 rounded-xl p-5 border border-emerald-100">
+              <h3 className="font-bold text-emerald-800 text-sm mb-4 pb-2 border-b border-emerald-200">
+                賃貸の場合
+              </h3>
+              <dl className="space-y-3 text-sm">
+                <div className="flex justify-between">
+                  <dt className="text-gray-600">建物（借家建物）</dt>
+                  <dd className="font-semibold text-gray-900">{formatYen(result.rentalBuildingPrice)} 円</dd>
+                </div>
+                <div className="flex justify-between">
+                  <dt className="text-gray-600">土地（貸家建付地）</dt>
+                  <dd className="font-semibold text-gray-900">{formatYen(result.leasedLandValue)} 円</dd>
+                </div>
+                <div className="flex justify-between pt-3 border-t border-emerald-200">
+                  <dt className="font-bold text-emerald-900">評価額合計</dt>
+                  <dd className="font-bold text-emerald-900 text-lg">{formatYen(result.totalRental)} 円</dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+
+          {/* 区分所有補正率の概要 */}
+          <div className="mt-5 p-4 bg-gray-50 rounded-lg border border-gray-200">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center text-xs">
+              <div>
+                <p className="text-gray-500">評価乖離率</p>
+                <p className="font-bold text-gray-900 text-sm mt-0.5">{formatDecimal(result.deviationRate, 3)}</p>
+              </div>
+              <div>
+                <p className="text-gray-500">評価水準</p>
+                <p className="font-bold text-gray-900 text-sm mt-0.5">
+                  {result.deviationRate > 0 ? formatDecimal(result.evaluationLevel, 3) : "---"}
+                </p>
+              </div>
+              <div>
+                <p className="text-gray-500">区分所有補正率</p>
+                <p className="font-bold text-gray-900 text-sm mt-0.5">{formatDecimal(result.sectionalCorrectionRate, 3)}</p>
+              </div>
+              <div>
+                <p className="text-gray-500">判定</p>
+                <p className="font-bold text-sm mt-0.5">
+                  {result.correctionCase === "multiply06" && <span className="text-orange-600">引上げ補正</span>}
+                  {result.correctionCase === "deviation" && <span className="text-blue-600">引下げ補正</span>}
+                  {result.correctionCase === "no_correction" && <span className="text-green-600">補正なし</span>}
+                  {result.correctionCase === "none" && <span className="text-gray-500">対象外</span>}
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+
+      {/* 計算ロジック詳細（折りたたみ） */}
       {showDetails && (
-        <>
-          <h4 className="font-semibold mt-8 mb-3 text-gray-900 text-base">計算ロジック詳細</h4>
-          <ul className="text-xs space-y-1 text-gray-900">
-            <li>築年数: {details.buildingAgeRaw} → {result.buildingAge} 年（切り上げ）</li>
-            <li>敷地利用権の面積: {details.landRightAreaRaw.toFixed(4)} → {result.landRightArea.toFixed(2)} ㎡（小数点2位切り上げ）</li>
-            <li>従来の敷地利用権の価格（土地）: {Number(details.landRightPriceRaw).toLocaleString()} → {Number(result.landRightPrice).toLocaleString()} 円（0円の位で四捨五入）</li>
-            <li>A = 築年数 × (-0.033): {details.A.toFixed(3)}</li>
-            <li>B = 総階数指数 × 0.239: {details.B.toFixed(3)}</li>
-            <li>総階数指数＝総階数÷33 : {details.totalFloorsIndex.toFixed(3)}（小数点3位切捨て、1を超える場合は1）</li>
-            <li>C = 所在階 × 0.018: {details.C.toFixed(3)}</li>
-            <li>D = 敷地持分狭小度 × (−1.195): {details.D.toFixed(3)}</li>
-            <li>敷地持分狭小度＝ {result.landRightArea.toFixed(2)}㎡÷{details.sectionalBuildingPrice ? (result.sectionalBuildingPrice / details.sectionalCorrectionRate).toFixed(2) : ''}㎡ : {details.shareNarrownessDegree.toFixed(3)}（小数点3位切り上げ）</li>
-            <li>評価乖離率＝A+B+C+D+3.220 : {details.deviationRate.toFixed(3)}</li>
-            <li>評価水準 = 1 ÷ 評価乖離率 : {details.evaluationLevel.toFixed(3)}</li>
-            <li>区分所有補正率: {details.sectionalCorrectionRate.toFixed(4)}</li>
-          </ul>
-          <div className="mt-4">
-            <div className="font-bold text-blue-800">【自用地の場合】</div>
-            <ul className="text-xs space-y-1 text-gray-900">
-              <li>区分所有権の価格（建物）: {Number(details.sectionalBuildingPrice).toLocaleString()} 円</li>
-              <li>敷地利用権の価額（土地）: {Number(details.landRightValue).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} 円</li>
-              <li>自用地合計: {Number(details.totalSelf).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} 円</li>
-            </ul>
-            <div className="font-bold text-green-800 mt-4">【賃貸の場合】</div>
-            <ul className="text-xs space-y-1 text-gray-900">
-              <li>借家建物の価格（賃貸）: {Number(details.rentalBuildingPrice).toLocaleString()} 円</li>
-              <li>貸家建付地価額（賃貸）: {Number(details.leasedLandValue).toLocaleString(undefined, { minimumFractionDigits: 3, maximumFractionDigits: 3 })} 円</li>
-              <li>賃貸合計: {Number(details.totalRental).toLocaleString(undefined, { minimumFractionDigits: 3, maximumFractionDigits: 3 })} 円</li>
-            </ul>
-          </div>
-        </>
+        <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+          <button
+            type="button"
+            onClick={() => setDetailsOpen(!detailsOpen)}
+            className="w-full flex items-center justify-between px-6 py-3 text-sm font-semibold text-gray-700 hover:bg-gray-50 transition"
+          >
+            <span>計算過程の詳細</span>
+            <svg
+              className={`w-5 h-5 transition-transform ${detailsOpen ? "rotate-180" : ""}`}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+
+          {detailsOpen && (
+            <div className="px-6 pb-6 border-t border-gray-100">
+              <div className="mt-4 space-y-4">
+                {/* 基礎数値 */}
+                <DetailSection title="基礎数値">
+                  <DetailRow label="築年数" value={`${result.buildingAge} 年`} />
+                  <DetailRow label="敷地利用権の面積" value={`${formatDecimal(d.landRightAreaRaw, 4)} → ${formatDecimal(result.landRightArea, 2)} m²（ROUNDUP）`} />
+                  <DetailRow label="従来の敷地利用権の価格（土地）" value={`${formatYen(result.landRightPrice)} 円`} />
+                </DetailSection>
+
+                {/* 評価乖離率 */}
+                <DetailSection title="評価乖離率の計算">
+                  <DetailRow
+                    label="A = 築年数 × (−0.033)"
+                    value={`${result.buildingAge} × (−0.033) = ${formatDecimal(d.A, 4)}`}
+                  />
+                  <DetailRow
+                    label="総階数指数 = 総階数 ÷ 33"
+                    value={`${formatDecimal(d.totalFloorsIndex, 3)}（ROUNDDOWN、上限1.000）`}
+                  />
+                  <DetailRow
+                    label="B = 総階数指数 × 0.239"
+                    value={`${formatDecimal(d.totalFloorsIndex, 3)} × 0.239 = ${formatDecimal(d.B, 3)}（ROUNDDOWN）`}
+                  />
+                  <DetailRow
+                    label="C = 所在階 × 0.018"
+                    value={`${formatDecimal(d.C, 4)}`}
+                  />
+                  <DetailRow
+                    label="敷地持分狭小度 = 敷地利用権面積 ÷ 専有面積"
+                    value={`${formatDecimal(d.shareNarrownessDegree, 3)}（ROUNDUP）`}
+                  />
+                  <DetailRow
+                    label="D = 敷地持分狭小度 × (−1.195)"
+                    value={`${formatDecimal(d.shareNarrownessDegree, 3)} × (−1.195) = ${formatDecimal(d.D, 3)}（ROUNDUP）`}
+                  />
+                  <DetailRow
+                    label="評価乖離率 = A + B + C + D + 3.220"
+                    value={formatDecimal(d.deviationRate, 4)}
+                    highlight
+                  />
+                </DetailSection>
+
+                {/* 区分所有補正率 */}
+                <DetailSection title="区分所有補正率">
+                  <DetailRow
+                    label="評価水準 = 1 ÷ 評価乖離率"
+                    value={result.deviationRate > 0 ? formatDecimal(d.evaluationLevel, 4) : "---"}
+                  />
+                  <DetailRow
+                    label="適用区分"
+                    value={correctionCaseLabel(result.correctionCase)}
+                  />
+                  <DetailRow
+                    label="区分所有補正率"
+                    value={formatDecimal(d.sectionalCorrectionRate, 3)}
+                    highlight
+                  />
+                </DetailSection>
+
+                {/* 最終計算 */}
+                <DetailSection title="最終計算">
+                  <div className="text-xs font-semibold text-blue-700 mb-1">【自用の場合】</div>
+                  <DetailRow label="建物 = 従来の価格 × 補正率" value={`${formatYen(d.sectionalBuildingPrice)} 円`} />
+                  <DetailRow label="土地 = 従来の土地価格 × 補正率" value={`${formatYen(d.landRightValue)} 円`} />
+                  <DetailRow label="合計" value={`${formatYen(d.totalSelf)} 円`} highlight />
+
+                  <div className="text-xs font-semibold text-emerald-700 mt-3 mb-1">【賃貸の場合】</div>
+                  <DetailRow label="建物 = 区分所有権の価格 × (1 − 0.3)" value={`${formatYen(d.rentalBuildingPrice)} 円`} />
+                  <DetailRow label="土地 = 貸家建付地の計算" value={`${formatYen(d.leasedLandValue)} 円`} />
+                  <DetailRow label="合計" value={`${formatYen(d.totalRental)} 円`} highlight />
+                </DetailSection>
+              </div>
+            </div>
+          )}
+        </div>
       )}
+
+      {/* 注意事項 */}
+      <div className="px-4 py-3 bg-amber-50 border border-amber-200 rounded-xl">
+        <p className="text-xs text-amber-800 leading-relaxed">
+          <span className="font-bold">注意:</span> この計算結果は参考値です。
+          実際の相続税申告にあたっては、税理士等の専門家にご相談ください。
+          本ツールは国税庁通達「居住用の区分所有財産の評価について」（令和6年1月1日以後適用）に基づいています。
+          路線価の各種補正（奥行価格補正等）は考慮していません。
+        </p>
+      </div>
     </div>
   );
-} 
+}
+
+function DetailSection({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <div>
+      <h4 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 pb-1 border-b border-gray-100">
+        {title}
+      </h4>
+      <div className="space-y-1">{children}</div>
+    </div>
+  );
+}
+
+function DetailRow({ label, value, highlight }: { label: string; value: string; highlight?: boolean }) {
+  return (
+    <div className={`flex justify-between items-start text-xs gap-4 py-0.5 ${highlight ? "font-bold text-gray-900 bg-yellow-50 -mx-2 px-2 py-1 rounded" : "text-gray-600"}`}>
+      <span className="shrink-0">{label}</span>
+      <span className={`text-right font-mono ${highlight ? "text-gray-900" : "text-gray-800"}`}>{value}</span>
+    </div>
+  );
+}

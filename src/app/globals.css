@@ -17,38 +17,11 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
-input, textarea, select {
-  background: #fff;
-  color: #171717;
-}
-
-.bg-white {
-  background-color: #fff !important;
-}
-.bg-blue-50 {
-  background-color: #eff6ff !important;
-}
-.bg-green-50 {
-  background-color: #ecfdf5 !important;
-}
-.text-gray-900 {
-  color: #171717 !important;
-}
-.border-gray-300 {
-  border-color: #d1d5db !important;
-}
-
-.input {
-  @apply w-full px-4 py-3 bg-white border-2 border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-yellow-400 transition placeholder-gray-400 text-gray-900;
-}
-
-.btn {
-  @apply px-4 py-2 rounded bg-blue-600 text-white font-semibold hover:bg-blue-700 transition;
-}
-
-.btn-primary {
-  @apply bg-blue-600 hover:bg-blue-700;
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  opacity: 1;
 }

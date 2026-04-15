@@ -1,3 +1,5 @@
+export type CorrectionCase = 'none' | 'multiply06' | 'deviation' | 'no_correction';
+
 export type FormInput = {
   inheritanceDate: string; // 相続開始日
   constructionDate: string; // 新築年月日
@@ -22,6 +24,7 @@ export type CalculationResult = {
   deviationRateRaw: number;
   evaluationLevel: number;
   sectionalCorrectionRate: number;
+  correctionCase: CorrectionCase;
   sectionalBuildingPrice: number;
   rentalBuildingPrice: number;
   landRightValue: number;
@@ -44,6 +47,7 @@ export type CalculationDetails = {
   shareNarrowness: number;
   landRightAreaD: number | null;
   sectionalCorrectionRate: number;
+  correctionCase: CorrectionCase;
   deviationRate: number;
   deviationRateRaw: number;
   evaluationLevel: number;
@@ -57,4 +61,4 @@ export type CalculationDetails = {
 
 export type ResultWithDetails = CalculationResult & {
   details: CalculationDetails;
-}; 
+};
